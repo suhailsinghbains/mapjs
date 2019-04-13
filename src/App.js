@@ -30,17 +30,26 @@ class App extends Component {
   GotoLocation(e) {
     //MapContainer opacity 1 and zIndex to -1
     if (e === 0) {
+      this.setState({
+        ...this.state, pinCode: ''
+      })
       //Go to this Lat & Long
     } else if (e === 1) {
+      this.setState({
+        ...this.state, lat: '', lng: ''
+      })
       //Got to this pin code
     } else {
-      this.setState({
-        ...this.state,
-        opacity: "1",
-        zIndex: "-1"
-      });
+
       //Just Display the Map by removing the opacity
     }
+    this.setState({
+      ...this.state,
+      opacity: "1",
+      zIndex: "-1"
+    });
+    // this.forceUpdate(this)
+
   }
 
   CloseMap() {
@@ -50,12 +59,12 @@ class App extends Component {
       zIndex: "1"
     });
   }
-  
+
   render() {
     return (
       <div>
         <div style={{ opacity: this.state.opacity }}>
-          <MapContainer />
+          <MapContainer props={{ lat: this.state.lat, lng: this.state.lng, pinCode: this.state.pinCode }} />
           <div
             style={{ position: "absolute", left: "10px", fontSize: "4em" }}
             onClick={() => this.CloseMap()}
