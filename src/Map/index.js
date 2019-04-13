@@ -14,12 +14,19 @@ export class MapContainer extends Component {
             showingInfoWindow: false,  //Hides or the shows the infoWindow
             activeMarker: {},          //Shows the active marker upon click
             selectedPlace: {},          //Shows the infoWindow to the selected place upon a marker
-            lat: '27.8',
-            lng: '30',
+            lat: '28.615427',
+            lng: '77.208737',
             PinCode: ''
         };
     }
     componentWillReceiveProps(props) {
+        console.log(props.props)
+        if (props.props.lat === '') {
+            props.props.lat = '28.615427'
+        }
+        if (props.props.lng === '') {
+            props.props.lng = '77.208737'
+        }
         this.setState({
             ...props.props
         })
@@ -48,6 +55,10 @@ export class MapContainer extends Component {
                 google={this.props.google}
                 zoom={12}
                 style={mapStyles}
+                initialCenter={{
+                    lat: '28.615427',
+                    lng: '77.208737'
+                }}
                 center={{
                     lat: Number(this.state.lat),
                     lng: Number(this.state.lng)
