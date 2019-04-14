@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import { Map, GoogleApiWrapper, InfoWindow, Marker } from "google-maps-react";
+import Geocode from "react-geocode";
 
 const mapStyles = {
     width: "100%",
     height: "100%"
 };
+Geocode.setApiKey('AIzaSyBWlXb6g8OVd1rFIaV6opbD2np2ZwgWqzE');
 
 export class MapContainer extends Component {
 
@@ -49,7 +51,15 @@ export class MapContainer extends Component {
         }
     };
     render() {
-        // console.log(window.google)
+        Geocode.fromLatLng(this.state.lat, this.state.lng).then(
+            response => {
+              const address = response.results[0].formatted_address;
+              console.log(address);
+            },
+            error => {
+              console.error(error);
+            }
+          );        
         return (
             <Map
                 google={this.props.google}
