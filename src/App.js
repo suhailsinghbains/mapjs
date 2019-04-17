@@ -3,16 +3,13 @@ import MapContainer from "./Map";
 import "./App.css";
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      lat: "",
-      lng: "",
-      pinCode: "",
-      opacity: "0.3",
-      zIndex: "1"
-    };
-  }
+  state = {
+    lat: "",
+    lng: "",
+    pinCode: "",
+    opacity: "0.3",
+    zIndex: "1"
+  };
 
   Property = {
     0: "lat",
@@ -29,27 +26,34 @@ class App extends Component {
 
   GotoLocation(e) {
     //MapContainer opacity 1 and zIndex to -1
+    let EmptyString = "";
     if (e === 0) {
       this.setState({
-        ...this.state, pinCode: ''
-      })
+        ...this.state,
+        pinCode: EmptyString,
+        opacity: "1",
+        zIndex: "-1"
+      });
       //Go to this Lat & Long
     } else if (e === 1) {
       this.setState({
-        ...this.state, lat: '', lng: ''
-      })
+        ...this.state,
+        lat: EmptyString,
+        lng: EmptyString,
+        opacity: "1",
+        zIndex: "-1"
+      });
+
       //Got to this pin code
     } else {
-
+      this.setState({
+        ...this.state,
+        opacity: "1",
+        zIndex: "-1"
+      });
       //Just Display the Map by removing the opacity
     }
-    this.setState({
-      ...this.state,
-      opacity: "1",
-      zIndex: "-1"
-    });
-    // this.forceUpdate(this)
-
+    console.log(this.state);
   }
 
   CloseMap() {
@@ -64,7 +68,13 @@ class App extends Component {
     return (
       <div>
         <div style={{ opacity: this.state.opacity }}>
-          <MapContainer props={{ lat: this.state.lat, lng: this.state.lng, pinCode: this.state.pinCode }} />
+          <MapContainer
+            props={{
+              lat: this.state.lat,
+              lng: this.state.lng,
+              pinCode: this.state.pinCode
+            }}
+          />
           <div
             style={{ position: "absolute", left: "10px", fontSize: "4em" }}
             onClick={() => this.CloseMap()}
